@@ -1,0 +1,32 @@
+[main]
+    certname = <%= @fqdn %>
+    vardir = /var/opt/lib/pe-puppet
+    logdir = /var/log/pe-puppet
+    rundir = /var/run/pe-puppet
+    modulepath = /etc/puppetlabs/puppet/modules:/opt/puppet/share/puppet/modules
+    server = <%= @fqdn %>
+    user  = pe-puppet
+    group = pe-puppet
+    archive_files = true
+    archive_file_server = <%= @fqdn %>
+
+[master]
+    certname = master0.puppetlabs.vm
+    dns_alt_names = master0,master0.puppetlabs.vm,puppet,puppet.puppetlabs.vm
+    ca_name = 'Puppet CA generated on master0.puppetlabs.vm at 2013-10-02 15:15:15 +0000'
+    <%if @before_db and @before_console %>#<% end %>reports = <%if @before_console %>http,<% end %><%if @before_db %>puppetdb<% end %>
+    <%if @before_console %>#<% end %>reporturl = https://puppet.puppetlabs.vm:443/reports/upload
+    <%if @before_console %>#<% end %>node_terminus = exec
+    <%if @before_console %>#<% end %>external_nodes = /etc/puppetlabs/puppet-dashboard/external_node
+    ssl_client_header = SSL_CLIENT_S_DN
+    ssl_client_verify_header = SSL_CLIENT_VERIFY
+    <%if @before_db %>#<% end %>storeconfigs_backend = puppetdb
+    storeconfigs = <%if @before_db %>false<% else %>true<% end %>
+
+[agent]
+    report = true
+    classfile = $vardir/classes.txt
+    localconfig = $vardir/localconfig
+    graph = true
+    pluginsync = true
+    environment = production
