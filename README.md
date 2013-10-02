@@ -63,6 +63,7 @@ Install Console0:
 2. Run "./puppet-enterprise-installer -A /root/pe_scaling/answers/console.txt"
 3. Sign certificate on master
 4. Run Puppet (as already classified on master)
+5. On master0 run Run "puppet apply -e 'include pe_scaling::post_console'"
 
 Install Master1:
 1. Change to expanded Puppet installer directory
