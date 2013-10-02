@@ -1,0 +1,1 @@
+ include ca = false and ca_server = master0.puppetlabs.vm

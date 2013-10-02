@@ -1,0 +1,4 @@
+---
+
+pe_mcollective::role::agent::stomp_servers: ['puppet.puppetlabs.vm']
+pe_mcollective::role::agent::stomp_password: 'qU7JqSy3TieClEuQSAkm'

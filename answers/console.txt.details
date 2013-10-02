@@ -1,0 +1,28 @@
+for second console:
+
+mod installer:
+        #modification for scalability
+        rsync -e 'ssh -i /root/.ssh/id_rsa' root@console0:/opt/puppet/share/puppet-dashboard/certs/* /opt/puppet/share/puppet-dashboard/certs/
+
+        #if [ ! -e '/opt/puppet/share/puppet-dashboard/certs/pe-internal-dashboard.private_key.pem' ]; then
+        #    console_rake_task 'cert:create_key_pair'
+        #fi
+
+        if [ y = "${q_puppetmaster_install?}" ]; then
+            wait_for_passenger install
+        fi
+
+        if [ ! -e '/opt/puppet/share/puppet-dashboard/certs/pe-internal-dashboard.cert.pem' ]; then
+            # There's no way to tell whether or not we've already done a
+            # cert request, but if we have it's harmless to try again. The
+            # rake task will fail, however, so we just ignore the failure
+            # and move on.
+            #console_rake_task 'cert:request' || :
+
+            # We autosign the Console certificates when console/master are split. Otherwise we need to sign it now.
+            if [ y = "${q_puppetmaster_install?}" ]; then
+                run_suppress_stdout '/opt/puppet/bin/puppet cert --sign pe-internal-dashboard --color=false' || :
+            fi
+
+            #console_rake_task 'cert:retrieve'
+        fi
