@@ -27,6 +27,7 @@ Install Master0:
 6. Create a link from the /root/pe_scaling/hiera.yaml to /etc/puppetlabs/puppet/hiera.yaml
 7. Run "puppet apply -e 'include pe_scaling::pre_db'"
 8. Adjust auth.conf as required
+9. Install puppetlabs/apache, puppetlabs/haproxy modules
 
 Install Proxy/Load Balancer:
 1. Change to expanded Puppet installer directory
