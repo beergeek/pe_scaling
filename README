@@ -90,9 +90,10 @@ Install PuppetDB1:
 
 Install Console1:
 1. Change to expanded Puppet installer directory
-2. Edit puppet-enterprise-installer and replace the line "console_rake_task 'cert:retrieve'" with "sync -e 'ssh -i /root/.ssh/id_rsa' root@console0:/opt/puppet/share/puppet-dashboard/certs/* /opt/puppet/share/puppet-dashboard/certs/"
-3. Run "./puppet-enterprise-installer -A /root/pe_scaling/answers/console.txt"
-4. Sign certificate on master
-5. Run Puppet (as already classified on master)
+2. Run "mkdir -p /opt/puppetlabs/share/puppet-dashboard/certs"
+3. Copy certificates from same directory on Console0 to the created directory on Console1
+4. Run "./puppet-enterprise-installer -A /root/pe_scaling/answers/console.txt"
+5. Sign certificate on master
+6. Run Puppet (as already classified on master)
 
 Test!
